@@ -1,9 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import sys
-import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
-import formation_controller.self_networked_controllers as ncs
+import self_networked_controllers as ncs
 
 # Basic test to drive the agent towards the heavily weighted neighbor
 def test_basic():
@@ -15,12 +12,8 @@ def test_basic():
 
     qs, ts, us = ncs.simulation(q0_agent, q_nbrs, w_nbrs, 0.05, 3.0)
     # fig0 = plt.figure(0, figsize=(6,6))
-    # plt.scatter(q_nbrs[:, 0], q_nbrs[:, 1], marker="*")
-    # plt.scatter(qs[0, :], qs[1, :], c=ts, cmap="summer")
-
-    fig1 = plt.figure(1, figsize=(16,9))
-    plt.plot(us[0, :], linestyle="dashed")
-    plt.plot(us[1, :], linestyle="solid", color="green")
+    plt.scatter(q_nbrs[:, 0], q_nbrs[:, 1], marker="*")
+    plt.scatter(qs[0, :], qs[1, :], c=ts, cmap="summer")
     plt.show()
 
 # Convergence to the centroid test
@@ -72,18 +65,17 @@ def test_converge_centroid():
         us_s.append(us)
     
     # Plot the data
-    # for qs, ts, us in zip(qs_s, ts_s, us_s):
-    #     plt.scatter(qs[0,:], qs[1,:], c=ts, cmap='spring')
-  
-    for us in us_s:
-        fig1 = plt.figure(1, figsize=(16,9))
-        plt.plot(us[0, :], linestyle="dashed")
-        plt.plot(us[1, :], linestyle="solid")
+    for qs, ts, us in zip(qs_s, ts_s, us_s):
+        plt.scatter(qs[0,:], qs[1,:], c=ts, cmap='spring', alpha=0.4)
     
     plt.show()
 
 # Convergence to a point with two agents
 def test_converge_point_two_agents(x, y):
+    """
+    x: x-coord
+    y: y-coord
+    """
     q0 = np.array([2, 2.5])
     q1 = np.array([-1.6, 0.8])
     q_ref = np.array([3*x - q0[0] - q1[0], 3*y - q0[1] - q1[1]])
@@ -149,5 +141,4 @@ def test_converge(x, y):
     plt.show()
 
 if __name__ == "__main__":
-    #test_basic()
     test_converge_centroid()
