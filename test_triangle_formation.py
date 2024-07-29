@@ -62,8 +62,8 @@ def test_triangle_formation(q0, q1, q2, dt, t_f):
     plt.grid(True)
     plt.show()
 
-    plt.scatter(us0[0, :], us0[1, :], c = ts, cmap='summer')
-    plt.show()
+    # plt.scatter(us0[0, :], us0[1, :], c = ts, cmap='summer')
+    # plt.show()
 
 if __name__ == "__main__":
     test_triangle_formation(q0, q1, q2, 0.0005, 3.0)
